@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&family=Caveat&display=swap" rel="stylesheet">
   <style>
 
-    #sidebar {
+ #sidebar {
   position: fixed;
   top: 0;
   right: -300px;
@@ -21,7 +21,6 @@
   z-index: 999;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 #sidebar.open {
@@ -29,27 +28,18 @@
 }
 
 #sidebar h3 {
-  margin: 0;
+  margin: 0 0 0.5rem;
   font-family: var(--font);
 }
 
-#noteInput {
-  resize: vertical;
-  min-height: 60px;
-  padding: 0.5rem;
-  font-family: var(--font);
-  border: 1px solid var(--accent);
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
-  color: var(--text);
-}
-
+/* This is the scrollable list */
 #notesList {
   list-style: none;
   padding: 0;
   margin: 0;
   overflow-y: auto;
   flex-grow: 1;
+  max-height: 60vh; /* So we save room at the bottom */
 }
 
 #notesList li {
@@ -71,6 +61,26 @@
   font-size: 1rem;
   cursor: pointer;
 }
+
+/* Move the textarea + button up */
+#noteInput {
+  resize: vertical;
+  min-height: 60px;
+  padding: 0.5rem;
+  font-family: var(--font);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+#sidebar button[onclick="addNote()"] {
+  align-self: flex-start;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font);
+}
+
 
     :root {
       --bg: #f4f1ee;
