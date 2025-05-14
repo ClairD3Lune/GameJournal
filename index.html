@@ -180,13 +180,17 @@
   <!-- Sidebar toggle button -->
 <button onclick="toggleSidebar()" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem 1rem;">📝 Notes</button>
 
-    <!-- Sidebar -->
+  <div id="mainContainer">
+  <div id="editor" contenteditable="true">Start writing your masterpiece, Pookie ✍️</div>
+  <!-- Sidebar goes here -->
   <div id="sidebar">
     <h3>🧠 Side Notes</h3>
     <ul id="notesList"></ul>
     <textarea id="noteInput" placeholder="Write a note..."></textarea>
     <button onclick="addNote()">➕ Add Note</button>
   </div>
+</div>
+
 
 
   <!-- Libraries -->
