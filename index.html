@@ -4,25 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Cozy Writing Spot</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&family=Caveat&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f4f1ee;
       --text: #222;
       --accent: #d0bdf4;
-    }
-
-    body.dark {
-      --bg: #1e1e2f;
-      --text: #f5f5f5;
-      --accent: #caa9fa;
+      --font: 'EB Garamond', serif;
     }
 
     body {
       margin: 0;
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'EB Garamond', serif;
+      font-family: var(--font);
       transition: background 0.3s, color 0.3s;
     }
 
@@ -34,11 +29,13 @@
 
     .toolbar {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       margin-bottom: 1rem;
     }
 
-    .toolbar button {
+    .toolbar button,
+    .toolbar select {
       padding: 0.5rem 1rem;
       background-color: var(--accent);
       color: var(--bg);
@@ -57,7 +54,7 @@
       border-radius: 10px;
       font-size: 1.1rem;
       line-height: 1.6;
-      font-family: 'EB Garamond', serif;
+      font-family: var(--font);
       resize: vertical;
     }
 
@@ -65,12 +62,46 @@
       margin-top: 1rem;
       font-family: 'Fira Code', monospace;
     }
+
+    /* Themes */
+    .theme-default {
+      --bg: #f4f1ee;
+      --text: #222;
+      --accent: #d0bdf4;
+      --font: 'EB Garamond', serif;
+    }
+
+    .theme-forest {
+      --bg: #1b2e24;
+      --text: #e2f4e6;
+      --accent: #6cc47c;
+      --font: 'EB Garamond', serif;
+    }
+
+    .theme-cafe {
+      --bg: #3e2c23;
+      --text: #f7e8d0;
+      --accent: #d2a679;
+      --font: 'Caveat', cursive;
+    }
+
+    .theme-witchy {
+      --bg: #12101c;
+      --text: #d0bbff;
+      --accent: #5e3a94;
+      --font: 'Fira Code', monospace;
+    }
   </style>
 </head>
-<body>
+<body class="theme-default">
   <div class="container">
     <div class="toolbar">
-      <button onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+      <select id="themeSelector" onchange="changeTheme(this.value)">
+        <option value="default">✨ Default</option>
+        <option value="forest">🌲 Forest</option>
+        <option value="cafe">☕ Café</option>
+        <option value="witchy">🌌 Witchy</option>
+      </select>
       <button onclick="saveToFile()">💾 Save</button>
       <button onclick="toggleFullscreen()">📺 Fullscreen</button>
     </div>
@@ -80,39 +111,31 @@
     </div>
   </div>
 
-  <!-- Marked.js (for Markdown parsing if needed later) -->
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- FileSaver.js (for file export) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
   <script>
     const editor = document.getElementById("editor");
     const wordCount = document.getElementById("wordCount");
+    const themeSelector = document.getElementById("themeSelector");
 
-    // Auto-save to localStorage
+    // Load saved text
     editor.value = localStorage.getItem("myCozyWriting") || "";
+
+    // Word counter
+    function updateWordCount() {
+      wordCount.textContent = editor.value.trim().split(/\s+/).filter(w => w).length;
+    }
 
     editor.addEventListener("input", () => {
       localStorage.setItem("myCozyWriting", editor.value);
-      wordCount.textContent = editor.value.trim().split(/\s+/).filter(word => word).length;
+      updateWordCount();
     });
 
-    // Word count on load
-    wordCount.textContent = editor.value.trim().split(/\s+/).filter(word => word).length;
+    updateWordCount();
 
-    // Dark mode toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-    }
-
-    // Save as .txt file
-    function saveToFile() {
-      const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
-      saveAs(blob, "my-writing.txt");
-    }
-
-    // Fullscreen toggle
+    // Fullscreen
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
@@ -120,6 +143,23 @@
         document.exitFullscreen();
       }
     }
+
+    // Save file
+    function saveToFile() {
+      const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
+      saveAs(blob, "my-writing.txt");
+    }
+
+    // Theme stuff
+    function changeTheme(themeName) {
+      document.body.className = `theme-${themeName}`;
+      localStorage.setItem("cozyTheme", themeName);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("cozyTheme") || "default";
+    themeSelector.value = savedTheme;
+    changeTheme(savedTheme);
   </script>
 </body>
 </html>
