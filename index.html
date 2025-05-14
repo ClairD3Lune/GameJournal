@@ -6,6 +6,72 @@
   <title>My Cozy Writing Spot</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&family=Caveat&display=swap" rel="stylesheet">
   <style>
+
+    #sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100vh;
+  background-color: var(--bg);
+  border-left: 2px solid var(--accent);
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: right 0.3s;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#sidebar.open {
+  right: 0;
+}
+
+#sidebar h3 {
+  margin: 0;
+  font-family: var(--font);
+}
+
+#noteInput {
+  resize: vertical;
+  min-height: 60px;
+  padding: 0.5rem;
+  font-family: var(--font);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: var(--text);
+}
+
+#notesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+#notesList li {
+  margin-bottom: 0.5rem;
+  background: rgba(0,0,0,0.05);
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-family: var(--font);
+  position: relative;
+}
+
+#notesList li button {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.3rem;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
     :root {
       --bg: #f4f1ee;
       --text: #222;
@@ -111,6 +177,18 @@
     </div>
   </div>
 
+  <!-- Sidebar toggle button -->
+<button onclick="toggleSidebar()" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem 1rem;">📝 Notes</button>
+
+    <!-- Sidebar -->
+  <div id="sidebar">
+    <h3>🧠 Side Notes</h3>
+    <ul id="notesList"></ul>
+    <textarea id="noteInput" placeholder="Write a note..."></textarea>
+    <button onclick="addNote()">➕ Add Note</button>
+  </div>
+
+
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -160,6 +238,50 @@
     const savedTheme = localStorage.getItem("cozyTheme") || "default";
     themeSelector.value = savedTheme;
     changeTheme(savedTheme);
+
+    // Sidebar toggle
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+// Note handling
+function loadNotes() {
+  const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
+  const notesList = document.getElementById("notesList");
+  notesList.innerHTML = "";
+  notes.forEach((note, i) => {
+    const li = document.createElement("li");
+    li.textContent = note;
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "❌";
+    delBtn.onclick = () => deleteNote(i);
+    li.appendChild(delBtn);
+    notesList.appendChild(li);
+  });
+}
+
+function addNote() {
+  const input = document.getElementById("noteInput");
+  if (input.value.trim()) {
+    const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
+    notes.push(input.value.trim());
+    localStorage.setItem("sideNotes", JSON.stringify(notes));
+    input.value = "";
+    loadNotes();
+  }
+}
+
+function deleteNote(index) {
+  const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
+  notes.splice(index, 1);
+  localStorage.setItem("sideNotes", JSON.stringify(notes));
+  loadNotes();
+}
+
+loadNotes(); // Call on page load
+
   </script>
+
+  
 </body>
 </html>
