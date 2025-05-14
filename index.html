@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Cozy Writing Spot</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f1ee;
+      --text: #222;
+      --accent: #d0bdf4;
+    }
+
+    body.dark {
+      --bg: #1e1e2f;
+      --text: #f5f5f5;
+      --accent: #caa9fa;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 1rem;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .toolbar button {
+      padding: 0.5rem 1rem;
+      background-color: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Fira Code', monospace;
+    }
+
+    #editor {
+      width: 100%;
+      min-height: 60vh;
+      padding: 1rem;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-family: 'EB Garamond', serif;
+      resize: vertical;
+    }
+
+    .status {
+      margin-top: 1rem;
+      font-family: 'Fira Code', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <button onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+      <button onclick="saveToFile()">💾 Save</button>
+      <button onclick="toggleFullscreen()">📺 Fullscreen</button>
+    </div>
+    <textarea id="editor" placeholder="Write your magical story here..."></textarea>
+    <div class="status">
+      Words: <span id="wordCount">0</span>
+    </div>
+  </div>
+
+  <!-- Marked.js (for Markdown parsing if needed later) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- FileSaver.js (for file export) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const wordCount = document.getElementById("wordCount");
+
+    // Auto-save to localStorage
+    editor.value = localStorage.getItem("myCozyWriting") || "";
+
+    editor.addEventListener("input", () => {
+      localStorage.setItem("myCozyWriting", editor.value);
+      wordCount.textContent = editor.value.trim().split(/\s+/).filter(word => word).length;
+    });
+
+    // Word count on load
+    wordCount.textContent = editor.value.trim().split(/\s+/).filter(word => word).length;
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Save as .txt file
+    function saveToFile() {
+      const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
+      saveAs(blob, "my-writing.txt");
+    }
+
+    // Fullscreen toggle
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>
