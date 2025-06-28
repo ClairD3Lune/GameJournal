@@ -3,297 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Cozy Writing Spot</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fira+Code&family=Caveat&display=swap" rel="stylesheet">
+  <title>Pookie's Game Showcase</title>
   <style>
-
- #sidebar {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 280px;
-  height: 100vh;
-  background-color: var(--bg);
-  border-left: 2px solid var(--accent);
-  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-  padding: 1rem;
-  transition: right 0.3s;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-}
-
-#sidebar.open {
-  right: 0;
-}
-
-#sidebar h3 {
-  margin: 0 0 0.5rem;
-  font-family: var(--font);
-}
-
-/* This is the scrollable list */
-#notesList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow-y: auto;
-  flex-grow: 1;
-  max-height: 60vh; /* So we save room at the bottom */
-}
-
-#notesList li {
-  margin-bottom: 0.5rem;
-  background: rgba(0,0,0,0.05);
-  padding: 0.5rem;
-  border-radius: 5px;
-  font-family: var(--font);
-  position: relative;
-}
-
-#notesList li button {
-  position: absolute;
-  right: 0.3rem;
-  top: 0.3rem;
-  background: none;
-  border: none;
-  color: red;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-/* Move the textarea + button up */
-#noteInput {
-  resize: vertical;
-  min-height: 60px;
-  padding: 0.5rem;
-  font-family: var(--font);
-  border: 1px solid var(--accent);
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-#sidebar button[onclick="addNote()"] {
-  align-self: flex-start;
-  padding: 0.3rem 0.7rem;
-  font-family: var(--font);
-}
-
-
-    :root {
-      --bg: #f4f1ee;
-      --text: #222;
-      --accent: #d0bdf4;
-      --font: 'EB Garamond', serif;
-    }
-
     body {
       margin: 0;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      transition: background 0.3s, color 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #3a3a60);
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
     }
 
     .container {
-      max-width: 800px;
-      margin: 4rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .game-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .completion-date {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
       padding: 1rem;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .toolbar button,
-    .toolbar select {
-      padding: 0.5rem 1rem;
-      background-color: var(--accent);
-      color: var(--bg);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Fira Code', monospace;
-    }
-
-    #editor {
-      width: 100%;
-      min-height: 60vh;
-      padding: 1rem;
-      background: rgba(255,255,255,0.3);
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      font-family: var(--font);
-      resize: vertical;
-    }
-
-    .status {
-      margin-top: 1rem;
-      font-family: 'Fira Code', monospace;
-    }
-
-    /* Themes */
-    .theme-default {
-      --bg: #f4f1ee;
-      --text: #222;
-      --accent: #d0bdf4;
-      --font: 'EB Garamond', serif;
-    }
-
-    .theme-forest {
-      --bg: #1b2e24;
-      --text: #e2f4e6;
-      --accent: #6cc47c;
-      --font: 'EB Garamond', serif;
-    }
-
-    .theme-cafe {
-      --bg: #3e2c23;
-      --text: #f7e8d0;
-      --accent: #d2a679;
-      --font: 'Caveat', cursive;
-    }
-
-    .theme-witchy {
-      --bg: #12101c;
-      --text: #d0bbff;
-      --accent: #5e3a94;
-      --font: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: #999;
     }
   </style>
 </head>
-<body class="theme-default">
+<body>
+  <header>
+    <h1>Pookie's Game Showcase 🎮</h1>
+    <p>Here's all the games I've finished and when I conquered 'em!</p>
+  </header>
+
   <div class="container">
-    <div class="toolbar">
-      <select id="themeSelector" onchange="changeTheme(this.value)">
-        <option value="default">✨ Default</option>
-        <option value="forest">🌲 Forest</option>
-        <option value="cafe">☕ Café</option>
-        <option value="witchy">🌌 Witchy</option>
-      </select>
-      <button onclick="saveToFile()">💾 Save</button>
-      <button onclick="toggleFullscreen()">📺 Fullscreen</button>
+    <div class="game-card">
+      <div class="game-title">Subnautica</div>
+      <div class="completion-date">Finished: April 2025</div>
     </div>
-    <textarea id="editor" placeholder="Write your magical story here..."></textarea>
-    <div class="status">
-      Words: <span id="wordCount">0</span>
+    <div class="game-card">
+      <div class="game-title">F1 Manager 2024</div>
+      <div class="completion-date">Finished: June 2025</div>
     </div>
+    <!-- Add more game cards here! -->
   </div>
 
-  <!-- Sidebar toggle button -->
-<button onclick="toggleSidebar()" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem 1rem;">📝 Notes</button>
-
-  <!-- Sidebar goes here -->
-  <div id="sidebar">
-    <h3>🧠 Side Notes</h3>
-    <ul id="notesList"></ul>
-    <textarea id="noteInput" placeholder="Write a note..."></textarea>
-    <button onclick="addNote()">➕ Add Note</button>
-  </div>
-</div>
-
-
-
-  <!-- Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-  <script>
-    const editor = document.getElementById("editor");
-    const wordCount = document.getElementById("wordCount");
-    const themeSelector = document.getElementById("themeSelector");
-
-    // Load saved text
-    editor.value = localStorage.getItem("myCozyWriting") || "";
-
-    // Word counter
-    function updateWordCount() {
-      wordCount.textContent = editor.value.trim().split(/\s+/).filter(w => w).length;
-    }
-
-    editor.addEventListener("input", () => {
-      localStorage.setItem("myCozyWriting", editor.value);
-      updateWordCount();
-    });
-
-    updateWordCount();
-
-    // Fullscreen
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-
-    // Save file
-    function saveToFile() {
-      const blob = new Blob([editor.value], { type: "text/plain;charset=utf-8" });
-      saveAs(blob, "my-writing.txt");
-    }
-
-    // Theme stuff
-    function changeTheme(themeName) {
-      document.body.className = `theme-${themeName}`;
-      localStorage.setItem("cozyTheme", themeName);
-    }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem("cozyTheme") || "default";
-    themeSelector.value = savedTheme;
-    changeTheme(savedTheme);
-
-    // Sidebar toggle
-function toggleSidebar() {
-  document.getElementById("sidebar").classList.toggle("open");
-}
-
-// Note handling
-function loadNotes() {
-  const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
-  const notesList = document.getElementById("notesList");
-  notesList.innerHTML = "";
-  notes.forEach((note, i) => {
-    const li = document.createElement("li");
-    li.textContent = note;
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "❌";
-    delBtn.onclick = () => deleteNote(i);
-    li.appendChild(delBtn);
-    notesList.appendChild(li);
-  });
-}
-
-function addNote() {
-  const input = document.getElementById("noteInput");
-  if (input.value.trim()) {
-    const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
-    notes.push(input.value.trim());
-    localStorage.setItem("sideNotes", JSON.stringify(notes));
-    input.value = "";
-    loadNotes();
-  }
-}
-
-function deleteNote(index) {
-  const notes = JSON.parse(localStorage.getItem("sideNotes") || "[]");
-  notes.splice(index, 1);
-  localStorage.setItem("sideNotes", JSON.stringify(notes));
-  loadNotes();
-}
-
-loadNotes(); // Call on page load
-
-  </script>
-
-  
+  <footer>
+    Made with love by ur fav nerd gf ✨
+  </footer>
 </body>
 </html>
