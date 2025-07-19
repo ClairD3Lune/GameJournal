@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💜🌑Clair's website🌑💜</title>
+  <title>🎮 Clair's Game Journal</title>
   <style>
     body {
       margin: 0;
@@ -12,10 +12,29 @@
       color: #fff;
     }
 
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+    }
+
+    nav a {
+      color: #cfcfff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
     header {
       text-align: center;
       padding: 2rem;
-      background: rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
@@ -55,111 +74,44 @@
       color: #ccc;
     }
 
-    footer a {
-      color: #cfcfff;
-      text-decoration: none;
-      margin: 0 1rem;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+  </nav>
+
   <header>
     <h1>🎮 Clair's Game Journal 🎮</h1>
     <p>Here are all the games I've finished and when I conquered 'em!</p>
   </header>
 
   <div class="container">
-    <div class="game-card">
-      <div class="game-title">Portal 2</div>
-      <div class="completion-date">September 22, 2017 – 5:40 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">❤️ Undertale ❤️</div>
-      <div class="completion-date">December 24, 2020 – 12:20 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">Subnautica</div>
-      <div class="completion-date">January 8, 2023 – 11:30 AM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title"> Doki Doki Literature club </div>
-      <div class="completion-date">July 13, 2023 – 10:00 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">The Henry Stickmin Collection</div>
-      <div class="completion-date">October 6, 2023 – 5:50 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title"> 💙 Celeste 💙 </div>
-      <div class="completion-date">July 3, 2024 – 10:05 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">Resident Evil 2</div>
-      <div class="completion-date">October 20, 2024 – 5:00 PM (Game Pass)</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">Portal Revolution</div>
-      <div class="completion-date">December 26, 2024 – 1:30 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">🤎 Kindgom come: Deliverance I🤎</div>
-      <div class="completion-date">March 9, 2025 – 10:00 PM (Epic Games)</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">Resident Evil 5</div>
-      <div class="completion-date">April 30, 2025 – 10:30 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">Resident Evil 6</div>
-      <div class="completion-date">May 7, 2025 – 7:45 PM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">💜Cyberpunk 2077 💜</div>
-      <div class="completion-date">June 29, 2025 – 12:30 AM</div>
-    </div>
-    <div class="game-card">
-      <div class="game-title">💛Undertale Yellow 💛</div>
-      <div class="completion-date">June 29, 2025 – 12:30 AM</div>
-    </div>
+    <!-- your game cards go here -->
+    <div class="game-card"><div class="game-title">Portal 2</div><div class="completion-date">September 22, 2017 – 5:40 PM</div></div>
+    <div class="game-card"><div class="game-title">❤️ Undertale ❤️</div><div class="completion-date">December 24, 2020 – 12:20 PM</div></div>
+    <div class="game-card"><div class="game-title">Subnautica</div><div class="completion-date">January 8, 2023 – 11:30 AM</div></div>
+    <div class="game-card"><div class="game-title">Doki Doki Literature Club</div><div class="completion-date">July 13, 2023 – 10:00 PM</div></div>
+    <div class="game-card"><div class="game-title">The Henry Stickmin Collection</div><div class="completion-date">October 6, 2023 – 5:50 PM</div></div>
+    <div class="game-card"><div class="game-title">💙 Celeste 💙</div><div class="completion-date">July 3, 2024 – 10:05 PM</div></div>
+    <div class="game-card"><div class="game-title">Resident Evil 2</div><div class="completion-date">October 20, 2024 – 5:00 PM</div></div>
+    <div class="game-card"><div class="game-title">Portal Revolution</div><div class="completion-date">December 26, 2024 – 1:30 PM</div></div>
+    <div class="game-card"><div class="game-title">🤎 Kingdom Come: Deliverance 🤎</div><div class="completion-date">March 9, 2025 – 10:00 PM</div></div>
+    <div class="game-card"><div class="game-title">Resident Evil 5</div><div class="completion-date">April 30, 2025 – 10:30 PM</div></div>
+    <div class="game-card"><div class="game-title">Resident Evil 6</div><div class="completion-date">May 7, 2025 – 7:45 PM</div></div>
+    <div class="game-card"><div class="game-title">💜 Cyberpunk 2077 💜</div><div class="completion-date">June 29, 2025 – 12:30 AM</div></div>
+    <div class="game-card"><div class="game-title">💛 Undertale Yellow 💛</div><div class="completion-date">June 29, 2025 – 12:30 AM</div></div>
   </div>
 
-  <!-- ✨ Personal Sections ✨ -->
-  <section id="about" style="padding: 2rem; background: rgba(0, 0, 0, 0.2);">
-    <h2>🦋 About Me</h2>
-    <p>Heya! I'm Clair D3 Lune — gamer, dreamer, language-creator, cube speedster, and SCP weirdo. I live for rainy days, fantasy stories, and mysterious aesthetics. This site started as a game log but now it's my lil corner of the web 💜</p>
-  </section>
-
-  <section id="updates" style="padding: 2rem;">
-    <h2>📓 Life Updates</h2>
-    <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 1rem; margin-bottom: 1rem;">
-      <strong>July 19, 2025:</strong> Decided to make this site more personal!! I'm gonna keep it cute & spooky.  
-    </div>
-    <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 1rem;">
-      <strong>[Write your next update here 💭]</strong>
-    </div>
-  </section>
-
-  <section id="nowplaying" style="padding: 2rem; background: rgba(0, 0, 0, 0.2);">
-    <h2>🎧 Now Playing</h2>
-    <ul>
-      <li><strong>Game:</strong> F1 Manager 2024</li>
-      <li><strong>Music:</strong> Probably something lo-fi and moody 💿</li>
-      <li><strong>Show/Book:</strong> Currently in my fantasy era 📚🌌</li>
-    </ul>
-  </section>
-
-  <!-- ✨ Cute Footer Nav ✨ -->
-  <footer style="text-align: center; padding: 2rem; font-size: 0.9rem; color: #ccc;">
-    <div style="margin-bottom: 1rem;">
-      <a href="#about">About Me</a>
-      <a href="#updates">Life Updates</a>
-      <a href="#nowplaying">Now Playing</a>
-    </div>
-    💜🌑 Made with love by Clair D3 Lune 🌑💜 
+  <footer>
+    💜🌑 Made with love by Clair D3 Lune 🌑💜
   </footer>
 </body>
 </html>
